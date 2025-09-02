@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading - Advanced Image Processing Studio</title>
+    <link rel="stylesheet" href="loader.css">
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main loader container -->
+    <div class="loader-container">
+        <!-- Logo and spinning elements -->
+        <div class="logo-section">
+            <div class="spinning-rings">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="ring ring-3"></div>
+            </div>
+            <div class="center-icon">🎨</div>
+        </div>
+
+        <!-- Welcome text -->
+        <div class="welcome-text">
+            <h1 class="main-title">Advanced Image Processing Studio</h1>
+            <p class="subtitle">Initializing graphics engines...</p>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressPercent">0%</span>
+                <span id="loadingStep">Starting up...</span>
+            </div>
+        </div>
+
+        <!-- Loading dots -->
+        <div class="loading-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <!-- Transition overlay -->
+    <div class="transition-overlay" id="transitionOverlay"></div>
+
+    <script src="loader.js"></script>
+</body>
+</html>

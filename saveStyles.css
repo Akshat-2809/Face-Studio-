@@ -1,0 +1,731 @@
+/* Enhanced Save Modal Styles  */
+
+/* Save Button Specific Styling */
+.btn-save {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius-large, 25px);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2); 
+    position: relative;
+    overflow: hidden;
+    will-change: transform; 
+}
+
+.btn-save:hover {
+    transform: translateY(-1px) scale(1.02); 
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-save:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+.btn-save::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.3s;
+}
+
+.btn-save:hover::before {
+    left: 100%;
+}
+
+/* Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+/* Modal Content */
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Modal Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px 20px;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.close {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.close:hover {
+    color: #333;
+    background: rgba(102, 126, 234, 0.1);
+    transform: rotate(90deg);
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 20px 30px;
+}
+
+.modal-body p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #555;
+    text-align: center;
+}
+
+/* Image Options Grid */
+.image-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.image-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease; 
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    position: relative;
+    overflow: hidden;
+    will-change: transform; 
+}
+
+.image-option:hover {
+    transform: translateY(-2px) scale(1.01);
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15); 
+}
+
+.image-option.selected {
+    border-color: #667eea;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    transform: translateY(-2px) scale(1.02); 
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.2); 
+}
+
+.image-option.selected::before {
+    content: '✓';
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: #667eea;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Option Preview */
+.option-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.option-preview canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.preview-error {
+    font-size: 10px;
+    color: #dc3545;
+    text-align: center;
+}
+
+.option-preview::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-option:hover .option-preview::after {
+    opacity: 1;
+}
+
+/* Option Labels */
+.image-option label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+    text-align: center;
+    cursor: pointer;
+    line-height: 1.2;
+}
+
+.image-option.selected label {
+    color: #667eea;
+}
+
+/* Save Options */
+.save-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.save-options label {
+    font-weight: 600;
+    color: #495057;
+    margin-right: 8px;
+}
+
+.save-options select {
+    padding: 8px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    color: #495057;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-options select:hover,
+.save-options select:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.save-options input[type="range"] {
+    width: 120px;
+    margin: 0 10px;
+}
+
+#qualityValue {
+    font-weight: 700;
+    color: #667eea;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    padding: 20px 30px 25px;
+    border-top: 2px solid rgba(102, 126, 234, 0.1);
+    background: rgba(248, 249, 250, 0.8);
+}
+
+.modal-footer .btn-primary:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.modal-footer .btn-primary:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Save Notification */
+.save-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 350px;
+    word-wrap: break-word;
+}
+
+.save-notification.show {
+    transform: translateX(0);
+}
+
+.save-notification.success {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+}
+
+.save-notification.error {
+    background: linear-gradient(45deg, #dc3545, #e74c3c);
+    color: white;
+}
+
+.save-notification.warning {
+    background: linear-gradient(45deg, #ffc107, #fd7e14);
+    color: #333;
+}
+
+.save-notification.info {
+    background: linear-gradient(45deg, #17a2b8, #6f42c1);
+    color: white;
+}
+
+/* Loading State for Save Modal */
+.modal-body.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.modal-body.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design for Save Modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .image-options {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+
+    .option-preview {
+        width: 60px;
+        height: 60px;
+    }
+
+    .image-option {
+        padding: 10px 5px;
+    }
+
+    .image-option label {
+        font-size: 0.75rem;
+    }
+
+    .save-options {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .save-options input[type="range"] {
+        width: 150px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-footer button {
+        width: 100%;
+    }
+
+    .save-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        transform: translateY(-100%);
+        text-align: center;
+    }
+
+    .save-notification.show {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 98%;
+        border-radius: 15px;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .image-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .option-preview {
+        width: 50px;
+        height: 50px;
+    }
+
+    .image-option label {
+        font-size: 0.7rem;
+        line-height: 1.1;
+    }
+}
+
+/* Animation for image option selection */
+@keyframes selectPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.image-option.selected {
+    animation: selectPulse 0.3s ease;
+}
+
+/* Hover effects for better UX */
+.image-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.image-option:hover::before {
+    opacity: 1;
+}
+
+/* Progress indicator for bulk saves */
+.save-progress {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1050;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    font-weight: 600;
+}
+
+.save-progress.show {
+    transform: translateY(0);
+}
+
+/* Download link styling */
+.download-link {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #495057;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.download-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Keyboard shortcuts hint */
+.keyboard-hints {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    font-size: 0.75rem;
+    color: #6c757d;
+    line-height: 1.3;
+}
+
+.keyboard-hints kbd {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    padding: 2px 4px;
+    font-family: monospace;
+    font-size: 0.7rem;
+}
+
+/* Success animation for saved images */
+@keyframes saveSuccess {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.image-option.saved {
+    animation: saveSuccess 0.5s ease;
+    border-color: #28a745;
+}
+
+.image-option.saved::after {
+    content: 'Saved!';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Format indicator badges */
+.format-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Quality indicator */
+.quality-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.quality-bar {
+    width: 100px;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.quality-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+/* Advanced save options toggle */
+.advanced-options {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(102, 126, 234, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.advanced-toggle {
+    cursor: pointer;
+    font-weight: 600;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.advanced-toggle::before {
+    content: '▶';
+    transition: transform 0.3s ease;
+}
+
+.advanced-toggle.expanded::before {
+    transform: rotate(90deg);
+}
+
+.advanced-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.advanced-content.expanded {
+    max-height: 200px;
+}
+
+/* Bulk save options */
+.bulk-save-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(40, 167, 69, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.bulk-save-section h4 {
+    margin: 0 0 10px 0;
+    color: #28a745;
+    font-size: 1rem;
+}
+
+.bulk-save-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.bulk-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .modal-content {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: #ecf0f1;
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .modal-header {
+        border-color: rgba(102, 126, 234, 0.2);
+        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    }
+
+    .modal-footer {
+        border-color: rgba(102, 126, 234, 0.2);
+        background: rgba(52, 73, 94, 0.5);
+    }
+
+    .image-option {
+        background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        border-color: #495057;
+        color: #ecf0f1;
+    }
+
+    .image-option:hover {
+        border-color: #667eea;
+    }
+
+    .save-options {
+        background: rgba(102, 126, 234, 0.1);
+    }
+
+    .save-options select {
+        background: #34495e;
+        color: #ecf0f1;
+        border-color: #495057;
+    }
+}
