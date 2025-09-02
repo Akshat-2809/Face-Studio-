@@ -82,4 +82,3 @@ FaceDetection/
 - Professional loading animations with CSS effects
 
 ---
-*CM2030 Graphics Programming Project*
